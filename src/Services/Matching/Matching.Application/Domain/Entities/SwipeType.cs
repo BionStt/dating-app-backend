@@ -2,7 +2,7 @@
 {
     public enum SwipeType
     {
-        Left,
-        Right
+        Left = 0,
+        Right = 1
     }
 }
