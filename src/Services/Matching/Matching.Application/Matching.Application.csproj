@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -13,15 +13,16 @@
 
   <ItemGroup>
     <Folder Include="Features\Matches\EventHandlers\" />
-    <Folder Include="Features\Matches\Queries\" />
-    <Folder Include="Features\Swipes\EventHandlers\" />
-    <Folder Include="Features\Swipes\Queries\" />
-    <Folder Include="Infrastructure\Persistence\" />
+    <Folder Include="Infrastructure\Persistence\Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Carter" Version="6.1.1" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
+    <PackageReference Include="MassTransit" Version="8.0.12" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.12" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" />

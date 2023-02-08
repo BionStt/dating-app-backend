@@ -8,6 +8,7 @@ namespace Matching.Application.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Swipe> builder)
         {
+            builder.ToTable("Swipes");
             builder.HasKey(s => s.Id);
 
             builder.Property(s => s.Id).HasConversion(

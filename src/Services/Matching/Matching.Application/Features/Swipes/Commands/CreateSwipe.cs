@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
-using System.Text.Json.Serialization;
 using Utils.Time;
 
 namespace Matching.Application.Features.Swipes.Commands
@@ -39,16 +38,8 @@ namespace Matching.Application.Features.Swipes.Commands
     {
         public string FromUserId { get; set; } = string.Empty;
         public string ToUserId { get; set; } = string.Empty;
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public CreateSwipeType Type { get; set; } = default;
+        public string Type { get; set; } = default!;
     }
-
-    public enum CreateSwipeType
-    {
-        Left = 0,
-        Right = 1
-    }
-
 
     public class CreateSwipesHandler : IRequestHandler<CreateSwipeCommand, IResult>
     {
@@ -60,7 +51,6 @@ namespace Matching.Application.Features.Swipes.Commands
         private readonly IEventPublisher _eventPublisher;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILogger<CreateSwipesHandler> _logger;
-        private readonly IMapper _mapper;
 
         public CreateSwipesHandler(MatchingDbContext context, ISwipesCacheRepository cacheRepository, ISwipeIdFactory swipeIdfactory, IMatchIdFactory matchIdFactory, IValidator<CreateSwipeCommand> validator, IEventPublisher eventPublisher, IDateTimeProvider dateTimeProvider, ILogger<CreateSwipesHandler> logger, IMapper mapper)
         {
@@ -72,7 +62,6 @@ namespace Matching.Application.Features.Swipes.Commands
             _eventPublisher = eventPublisher ?? throw new ArgumentNullException(nameof(eventPublisher));
             _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<IResult> Handle(CreateSwipeCommand request, CancellationToken cancellationToken)
@@ -84,7 +73,7 @@ namespace Matching.Application.Features.Swipes.Commands
                 return Results.ValidationProblem(result.GetValidationProblems());
             }
 
-            var type = _mapper.Map<SwipeType>(request.Type);
+            var type = (SwipeType)Enum.Parse(typeof(SwipeType), request.Type, true);
 
             var fromUserSwipeId = _swipeIdfactory.Create(request.FromUserId, request.ToUserId, type);
             var toUserSwipeId = _swipeIdfactory.Create(request.ToUserId, request.FromUserId, type);
@@ -180,16 +169,17 @@ namespace Matching.Application.Features.Swipes.Commands
                .WithMessage("'FromUserId' and 'ToUserId' must be different.");
 
             RuleFor(s => s.Type).NotEmpty();
-            RuleFor(s => s.Type).IsInEnum();
+            RuleFor(s => s.Type).Must(s => MustBeInEnum(s));
         }
-    }
 
-    public class SwipeTypeProfile : Profile
-    {
-        public SwipeTypeProfile()
+        private bool MustBeInEnum(string type)
         {
-            CreateMap<CreateSwipeType, SwipeType>();
+            type = type.ToLower();
+            List<string> types = Enum.GetNames(typeof(SwipeType)).ToList();
+            var typesSet = (from t in types select t.ToLower()).ToHashSet();
+            return typesSet.Contains(type);
         }
-    }
 
+
+    }
 }

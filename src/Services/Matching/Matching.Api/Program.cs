@@ -1,32 +1,25 @@
+using Carter;
+using FluentValidation;
+using Matching.Api.Extensions;
+using Matching.Application;
+using MediatR;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddCache(builder.Configuration);
+builder.Services.AddEventBus(builder.Configuration);
+builder.Services.AddCarter();
+builder.Services.AddDomainFactories();
+builder.Services.AddUtils();
+builder.Services.AddAutoMapper(typeof(IApplication));
+builder.Services.AddMediatR(typeof(IApplication));
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(IApplication));
 
 // Add services to the container.
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
-
+app.UseStaticFiles();
+app.MapCarter();
 app.Run();
 
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

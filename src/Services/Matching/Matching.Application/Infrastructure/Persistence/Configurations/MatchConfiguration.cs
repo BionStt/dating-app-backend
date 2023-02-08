@@ -8,6 +8,8 @@ namespace Matching.Application.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Match> builder)
         {
+            builder.ToTable("Matches");
+
             builder.HasKey(s => s.Id);
 
             builder.Property(s => s.Id).HasConversion(
