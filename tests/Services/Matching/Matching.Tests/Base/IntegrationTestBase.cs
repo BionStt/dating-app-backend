@@ -4,12 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Matching.Tests.Base
 {
-    public class MssqlIntegrationTestBase : IClassFixture<MssqlIntegrationTestFactory>
+    public class IntegrationTestBase : IClassFixture<IntegrationTestFactory>
     {
-        public readonly MssqlIntegrationTestFactory Factory;
+        public readonly IntegrationTestFactory Factory;
         public readonly MatchingDbContext Context;
 
-        public MssqlIntegrationTestBase(MssqlIntegrationTestFactory factory)
+        public IntegrationTestBase(IntegrationTestFactory factory)
         {
             Factory = factory;
             var scope = factory.Services.CreateScope();

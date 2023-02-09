@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,20 @@ namespace Matching.Tests.Extensions
             if (descriptor != null)
             {
                 services.Remove(descriptor);
+            }
+        }
+        public static void RemoveRedis(this IServiceCollection services)
+        {
+            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(RedisCacheOptions));
+            if (descriptor != null)
+            {
+                services.Remove(descriptor);
+            }
+
+            var descriptor1 = services.SingleOrDefault(d => d.ServiceType == typeof(IDistributedCache));
+            if (descriptor1 != null)
+            {
+                services.Remove(descriptor1);
             }
         }
 
