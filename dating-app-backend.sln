@@ -11,21 +11,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{39FC8BAA-7FD0-48A5-B709-5AE56473905F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "src\BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj", "{27E75D9D-BA8C-4646-8CB7-4EA0160D6786}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Messages", "src\BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj", "{27E75D9D-BA8C-4646-8CB7-4EA0160D6786}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "src\BuildingBlocks\Utils\Utils.csproj", "{8B8EAAC8-F75C-49FB-B81E-7DBAED0A9EAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "src\BuildingBlocks\Utils\Utils.csproj", "{8B8EAAC8-F75C-49FB-B81E-7DBAED0A9EAE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Matching", "Matching", "{837BCA1F-233D-446B-A3B2-329E93FF459B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matching.Application", "src\Services\Matching\Matching.Application\Matching.Application.csproj", "{A051EE1F-8DB5-422D-B1FF-4184E94F90FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matching.Application", "src\Services\Matching\Matching.Application\Matching.Application.csproj", "{A051EE1F-8DB5-422D-B1FF-4184E94F90FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{EF889693-4D50-4A15-837E-9D58E1659E07}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Matching", "Matching", "{240B3513-1B5E-46DA-82EB-6D0E6329DE42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matching.Api", "src\Services\Matching\Matching.Api\Matching.Api.csproj", "{F97B54D7-AEA5-43DF-9FF2-47E65D8DA992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matching.Api", "src\Services\Matching\Matching.Api\Matching.Api.csproj", "{F97B54D7-AEA5-43DF-9FF2-47E65D8DA992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matching.Tests", "tests\Services\Matching\Matching.Tests\Matching.Tests.csproj", "{36DAAC94-49AE-4D54-83F0-B535636D7EA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matching.Tests", "tests\Services\Matching\Matching.Tests\Matching.Tests.csproj", "{36DAAC94-49AE-4D54-83F0-B535636D7EA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Shared", "src\BuildingBlocks\Application.Shared\Application.Shared.csproj", "{A7EEEE73-4012-4FA9-8BFC-72F9DCB87FEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{36DAAC94-49AE-4D54-83F0-B535636D7EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36DAAC94-49AE-4D54-83F0-B535636D7EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36DAAC94-49AE-4D54-83F0-B535636D7EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7EEEE73-4012-4FA9-8BFC-72F9DCB87FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7EEEE73-4012-4FA9-8BFC-72F9DCB87FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7EEEE73-4012-4FA9-8BFC-72F9DCB87FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7EEEE73-4012-4FA9-8BFC-72F9DCB87FEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{240B3513-1B5E-46DA-82EB-6D0E6329DE42} = {EF889693-4D50-4A15-837E-9D58E1659E07}
 		{F97B54D7-AEA5-43DF-9FF2-47E65D8DA992} = {837BCA1F-233D-446B-A3B2-329E93FF459B}
 		{36DAAC94-49AE-4D54-83F0-B535636D7EA8} = {240B3513-1B5E-46DA-82EB-6D0E6329DE42}
+		{A7EEEE73-4012-4FA9-8BFC-72F9DCB87FEE} = {39FC8BAA-7FD0-48A5-B709-5AE56473905F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1DDF90C7-0571-496D-8C79-410BDA04DC96}

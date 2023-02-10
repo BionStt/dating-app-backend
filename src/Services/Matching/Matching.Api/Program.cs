@@ -1,3 +1,4 @@
+using Application.Shared.Middlewares;
 using Carter;
 using FluentValidation;
 using Matching.Api.Extensions;
@@ -11,6 +12,7 @@ builder.Services.AddCache(builder.Configuration);
 builder.Services.AddEventBus(builder.Configuration);
 builder.Services.AddCarter();
 builder.Services.AddDomainFactories();
+builder.Services.AddPipes();
 builder.Services.AddUtils();
 builder.Services.AddAutoMapper(typeof(IApplication));
 builder.Services.AddMediatR(typeof(IApplication));
@@ -19,6 +21,7 @@ builder.Services.AddValidatorsFromAssemblyContaining(typeof(IApplication));
 // Add services to the container.
 
 var app = builder.Build();
+app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseStaticFiles();
 app.MapCarter();
 app.Run();

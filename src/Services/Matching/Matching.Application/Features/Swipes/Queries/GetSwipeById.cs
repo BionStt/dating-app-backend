@@ -1,4 +1,5 @@
-﻿using Carter;
+﻿using Application.Shared.Exceptions;
+using Carter;
 using Dapper;
 using Matching.Application.Domain.Entities;
 using Matching.Application.Infrastructure.Dapper;
@@ -13,7 +14,7 @@ namespace Matching.Application.Features.Swipes.Queries
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("api/swipes/{swipeId}", async (string swipeId, IMediator mediator) =>
+            app.MapGet("api/swipes/{SwipeId}", async (string swipeId, IMediator mediator) =>
             {
                 return await mediator.Send(new GetSwipeByIdQuery(swipeId));
             })
@@ -36,15 +37,21 @@ namespace Matching.Application.Features.Swipes.Queries
             var query = @"SELECT Swipes.Id AS Id, Swipes.FromUserId AS FromUserId, Swipes.ToUserId AS ToUserId, 
                           Swipes.Type AS Type, Swipes.CreatedAt AS CreatedAt FROM Swipes WHERE Id = @Id";
 
-            var @params = new { Id = request.swipeId };
+            var @params = new { Id = request.SwipeId };
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstAsync<GetSwipeByIdResponse>(query, @params);
+                var result = await connection.QueryFirstOrDefaultAsync<GetSwipeByIdResponse>(query, @params);
+                if (result == null)
+                {
+                    var notFoundError = $"Swipe with the id {request.SwipeId} was not found.";
+                    throw new NotFoundException(notFoundError);
+                }
+                return result;
             }
         }
     }
 
-    public record GetSwipeByIdQuery(string swipeId) : IRequest<GetSwipeByIdResponse>;
+    public record GetSwipeByIdQuery(string SwipeId) : IRequest<GetSwipeByIdResponse>;
     public class GetSwipeByIdResponse 
     {
         public string Id { get; set; } = default!;

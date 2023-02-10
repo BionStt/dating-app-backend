@@ -1,4 +1,5 @@
-﻿using EventBus.Messages.Common;
+﻿using Application.Shared.Pipes;
+using EventBus.Messages.Common;
 using EventBus.Messages.Publisher;
 using MassTransit;
 using Matching.Application.Common.Interfaces;
@@ -8,6 +9,7 @@ using Matching.Application.Features.Swipes.EventHandlers;
 using Matching.Application.Infrastructure.Cache;
 using Matching.Application.Infrastructure.Dapper;
 using Matching.Application.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Utils.Time;
 
@@ -26,6 +28,12 @@ namespace Matching.Api.Extensions
         {
             services.AddTransient<ISwipeIdFactory, SwipeIdFactory>();
             services.AddTransient<IMatchIdFactory, MatchIdFactory>();
+        }
+
+        public static void AddPipes(this IServiceCollection services)
+        {
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         }
 
         public static void AddUtils(this IServiceCollection services)

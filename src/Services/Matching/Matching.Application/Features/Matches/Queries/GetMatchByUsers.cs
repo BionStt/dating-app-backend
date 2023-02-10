@@ -1,4 +1,5 @@
-﻿using Carter;
+﻿using Application.Shared.Exceptions;
+using Carter;
 using Dapper;
 using Matching.Application.Domain.Entities;
 using Matching.Application.Infrastructure.Dapper;
@@ -41,7 +42,13 @@ namespace Matching.Application.Features.Matches.Queries
 
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstOrDefaultAsync<GetMatchByUsersResponse>(query, @params);
+                var result = await connection.QueryFirstOrDefaultAsync<GetMatchByUsersResponse>(query, @params);
+                if (result == null)
+                {
+                    var notFoundMessage = $"Match between partnerOneId : {request.PartnerOneId} and partnerTwoId : {request.PartnerTwoId} was not found.";
+                    throw new NotFoundException(notFoundMessage);
+                }
+                return result;
             }
         }
     }

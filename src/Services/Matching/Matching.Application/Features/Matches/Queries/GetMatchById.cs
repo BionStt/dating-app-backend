@@ -1,4 +1,5 @@
-﻿using Carter;
+﻿using Application.Shared.Exceptions;
+using Carter;
 using Dapper;
 using Matching.Application.Domain.Entities;
 using Matching.Application.Infrastructure.Dapper;
@@ -33,14 +34,19 @@ namespace Matching.Application.Features.Matches.Queries
 
         public async Task<GetMatchByIdResponse> Handle(GetMatchByIdQuery request, CancellationToken cancellationToken)
         {
-
             var query = @"SELECT [Matches].Id AS Id, [Matches].PartnerOneId AS PartnerOneId, [Matches].PartnerTwoId AS PartnerTwoId,
                             [Matches].CreatedAt AS CreatedAt FROM [Matches] WHERE [Matches].Id = @Id";
             var @params = new { @Id = request.MatchId };
 
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QueryFirstAsync<GetMatchByIdResponse>(query, @params);
+                var result = await connection.QueryFirstOrDefaultAsync<GetMatchByIdResponse>(query, @params);
+                if (result == null)
+                {
+                    var notFoundError = $"Match with id : {request.MatchId}  was not found.";
+                    throw new NotFoundException(notFoundError);
+                }
+                return result;
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿using AutoMapper;
+﻿using Application.Shared.Exceptions;
+using AutoMapper;
 using Carter;
-using Carter.ModelBinding;
 using EventBus.Messages.Common;
 using EventBus.Messages.Events;
 using EventBus.Messages.Publisher;
@@ -47,18 +47,16 @@ namespace Matching.Application.Features.Swipes.Commands
         private readonly ISwipesCacheRepository _cacheRepository;
         private readonly ISwipeIdFactory _swipeIdfactory;
         private readonly IMatchIdFactory _matchIdFactory;
-        private readonly IValidator<CreateSwipeCommand> _validator;
         private readonly IEventPublisher _eventPublisher;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILogger<CreateSwipesHandler> _logger;
 
-        public CreateSwipesHandler(MatchingDbContext context, ISwipesCacheRepository cacheRepository, ISwipeIdFactory swipeIdfactory, IMatchIdFactory matchIdFactory, IValidator<CreateSwipeCommand> validator, IEventPublisher eventPublisher, IDateTimeProvider dateTimeProvider, ILogger<CreateSwipesHandler> logger, IMapper mapper)
+        public CreateSwipesHandler(MatchingDbContext context, ISwipesCacheRepository cacheRepository, ISwipeIdFactory swipeIdfactory, IMatchIdFactory matchIdFactory, IEventPublisher eventPublisher, IDateTimeProvider dateTimeProvider, ILogger<CreateSwipesHandler> logger, IMapper mapper)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
             _swipeIdfactory = swipeIdfactory ?? throw new ArgumentNullException(nameof(swipeIdfactory));
             _matchIdFactory = matchIdFactory ?? throw new ArgumentNullException(nameof(matchIdFactory));
-            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
             _eventPublisher = eventPublisher ?? throw new ArgumentNullException(nameof(eventPublisher));
             _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -66,13 +64,6 @@ namespace Matching.Application.Features.Swipes.Commands
 
         public async Task<IResult> Handle(CreateSwipeCommand request, CancellationToken cancellationToken)
         {
-            var result = _validator.Validate(request);
-
-            if (!result.IsValid)
-            {
-                return Results.ValidationProblem(result.GetValidationProblems());
-            }
-
             var type = (SwipeType)Enum.Parse(typeof(SwipeType), request.Type, true);
 
             var fromUserSwipeId = _swipeIdfactory.Create(request.FromUserId, request.ToUserId, type);
@@ -81,12 +72,15 @@ namespace Matching.Application.Features.Swipes.Commands
 
             if (await _cacheRepository.BothExistsByFromUserIdAndToUserIdAndType(request.FromUserId, request.ToUserId, type, cancellationToken))
             {
-                return Results.UnprocessableEntity();
+                var domainError = type == SwipeType.Right ? $"fromUserId : {request.FromUserId} and toUserId : {request.ToUserId} already match." : 
+                                                        $"fromUserId : {request.FromUserId} and toUserId : {request.ToUserId} already left swipe each other.";
+                throw new DomainException(domainError);
             }
 
             if (await _cacheRepository.ExistsAsync(fromUserSwipeId, cancellationToken))
             {
-                return Results.UnprocessableEntity();
+                var domainError = $"fromUserId : {request.FromUserId} already {request.Type} swipe toUserId {request.ToUserId}.";
+                throw new DomainException(domainError);
             }
 
             // Match
@@ -156,7 +150,6 @@ namespace Matching.Application.Features.Swipes.Commands
         }
 
     }
-
 
     public class CreateSwipeCommandValidator : AbstractValidator<CreateSwipeCommand>
     {

@@ -1,6 +1,7 @@
 ﻿using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
+using MassTransit;
 using Matching.Application.Infrastructure.Persistence;
 using Matching.Tests.Extensions;
 using Microsoft.AspNetCore.Hosting;
@@ -11,11 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Matching.Tests.Base
 {
+    // Based on aricle : https://www.azureblue.io/asp-net-core-integration-tests-with-test-containers-and-postgres/
     public class IntegrationTestFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
         private readonly TestcontainerDatabase _databaseContainer;
         private readonly TestcontainerDatabase _cacheContainer;
-
 
         public IntegrationTestFactory()
         {
@@ -41,14 +42,21 @@ namespace Matching.Tests.Base
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+
             builder.ConfigureTestServices(services =>
             {
-                services.RemoveRedis();
+                services.RemoveCache();
                 services.AddStackExchangeRedisCache(opt => opt.Configuration = _cacheContainer.ConnectionString);
                 services.RemoveDbContext<MatchingDbContext>();
                 services.AddDbContext<MatchingDbContext>(options => options.UseSqlServer(_databaseContainer.ConnectionString));
                 services.EnsureDbCreated<MatchingDbContext>();
-            });
+
+                services.AddMassTransitTestHarness(x =>
+                {
+
+                });
+
+            }).UseEnvironment("Testing");
         }
 
         public async Task InitializeAsync()
