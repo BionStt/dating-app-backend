@@ -14,7 +14,7 @@ namespace Matching.Application.Features.Swipes.Queries
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapGet("api/swipes/{SwipeId}", async (string swipeId, IMediator mediator) =>
+            app.MapGet("api/swipes/{swipeId}", async (string swipeId, IMediator mediator) =>
             {
                 return await mediator.Send(new GetSwipeByIdQuery(swipeId));
             })

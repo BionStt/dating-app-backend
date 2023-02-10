@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Matching.Application.Infrastructure.Dapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,15 @@ namespace Matching.Tests.Extensions
         public static void RemoveDbContext<T>(this IServiceCollection services) where T : DbContext
         {
             var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<T>));
+            if (descriptor != null)
+            {
+                services.Remove(descriptor);
+            }
+        }
+
+        public static void RemoveDapper(this IServiceCollection services)
+        {
+            var descriptor = services.SingleOrDefault(s => s.ServiceType == typeof(DapperConfig));
             if (descriptor != null)
             {
                 services.Remove(descriptor);

@@ -2,6 +2,9 @@
 using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
 using MassTransit;
+using Matching.Application.Features.Matches.EventHandlers;
+using Matching.Application.Features.Swipes.EventHandlers;
+using Matching.Application.Infrastructure.Dapper;
 using Matching.Application.Infrastructure.Persistence;
 using Matching.Tests.Extensions;
 using Microsoft.AspNetCore.Hosting;
@@ -49,11 +52,15 @@ namespace Matching.Tests.Base
                 services.AddStackExchangeRedisCache(opt => opt.Configuration = _cacheContainer.ConnectionString);
                 services.RemoveDbContext<MatchingDbContext>();
                 services.AddDbContext<MatchingDbContext>(options => options.UseSqlServer(_databaseContainer.ConnectionString));
+                services.RemoveDapper();
+                services.Configure<DapperConfig>(opt => opt.ConnectionString = _databaseContainer.ConnectionString);
                 services.EnsureDbCreated<MatchingDbContext>();
 
-                services.AddMassTransitTestHarness(x =>
+                services.AddMassTransitTestHarness(cfg =>
                 {
-
+                    cfg.AddConsumer<RightSwipeEventHandler>();
+                    cfg.AddConsumer<LeftSwipeEventHandler>();
+                    cfg.AddConsumer<MatchEventHandler>();
                 });
 
             }).UseEnvironment("Testing");

@@ -21,6 +21,9 @@ namespace Matching.Api.Extensions
         {
             var connectionString = configuration.GetConnectionString("MatchingApplication");
             services.AddDbContext<MatchingDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.Configure<DapperConfig>(options => options.ConnectionString = connectionString);
+
             services.AddScoped<IDapperContext, DapperContext>();
         }
 
