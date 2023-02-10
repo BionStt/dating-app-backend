@@ -1,5 +1,4 @@
-﻿
-using Matching.Application.Infrastructure.Persistence;
+﻿using Matching.Application.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Matching.Tests.Base

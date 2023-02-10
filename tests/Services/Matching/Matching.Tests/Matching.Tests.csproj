@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Matches\" />
-    <Folder Include="Features\Swipes\" />
   </ItemGroup>
 
   <ItemGroup>
