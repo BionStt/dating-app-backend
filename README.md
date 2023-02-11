@@ -17,6 +17,10 @@ The Matching API project hase the following features:
 - Get All Swipes delivered by User 
 - Get All Swipes Received by User 
 <br>
+<br>
+Matches
+<br>
+
 Each feature has its own unit and integration tests.
 
 ## How to run
