@@ -51,7 +51,7 @@ Once you’re finished of setting up the environment run the app as you usually 
 - Add Reccommendation Service
 - Add Identity Server
 - Add Api Gateway
-- Add observability
+- Add Observability
 - Create a front-end
 ## Libraries used
 - [Carter](https://github.com/CarterCommunity/Carter)
