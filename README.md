@@ -7,7 +7,7 @@ Simple API Rest that tries to emulate how dating apps process and deliver the sw
 ## How this works?
 When you send a request to create a swipe, the request handler will check if user swipes exist in cache in case if not exists the handler store the swipe in SQL database, then put the recently created swipe in cache and then publish an event with the created swipe info in a message broker in order to be processed asynchronously by another services.
 
-## How to run with docker-compose?
+## How to run
 In order to execute this project, you will need to open the terminal and locate the project root folder, once the above is done you will need to execute the following commands:
 ```bash
 // First | Build the project images
