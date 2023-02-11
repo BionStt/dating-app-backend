@@ -19,6 +19,9 @@ The Matching API project hase the following features:
 <br>
 Matches
 <br>
+- Get Match by Id
+- Get Match by Users
+- Get Matches by User
 
 Each feature has its own unit and integration tests.
 
