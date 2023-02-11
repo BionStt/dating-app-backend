@@ -17,3 +17,4 @@ When you send a request to create a swipe, the request handler will check if use
 - Dapper
 - StackExchangeRedis
 - MassTransit 
+- Testcontainers
