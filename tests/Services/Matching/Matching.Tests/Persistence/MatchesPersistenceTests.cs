@@ -6,12 +6,12 @@ using Utils.Time;
 
 namespace Matching.Tests.Persistence
 {
-    public class MatchesPersistenceTests : IntegrationTestBase
+    public class MatchesPersistenceTests : MssqlIntegrationTestBase
     {
         private readonly IMatchIdFactory _matchIdfactory;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public MatchesPersistenceTests(IntegrationTestFactory factory) : base(factory)
+        public MatchesPersistenceTests(MssqlIntegrationTestFactory factory) : base(factory)
         {
             var scope = factory.Services.CreateScope();
             _matchIdfactory = scope.ServiceProvider.GetRequiredService<IMatchIdFactory>();

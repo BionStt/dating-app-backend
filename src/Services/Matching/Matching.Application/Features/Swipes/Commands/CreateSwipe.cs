@@ -1,10 +1,8 @@
 ﻿using Application.Shared.Exceptions;
-using AutoMapper;
 using Carter;
-using EventBus.Messages.Common;
 using EventBus.Messages.Events;
-using EventBus.Messages.Publisher;
 using FluentValidation;
+using MassTransit;
 using Matching.Application.Common.Interfaces;
 using Matching.Application.Domain.Entities;
 using Matching.Application.Domain.Factories;
@@ -47,17 +45,17 @@ namespace Matching.Application.Features.Swipes.Commands
         private readonly ISwipesCacheRepository _cacheRepository;
         private readonly ISwipeIdFactory _swipeIdfactory;
         private readonly IMatchIdFactory _matchIdFactory;
-        private readonly IEventPublisher _eventPublisher;
+        private readonly IPublishEndpoint _publishEndpoint;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILogger<CreateSwipesHandler> _logger;
 
-        public CreateSwipesHandler(MatchingDbContext context, ISwipesCacheRepository cacheRepository, ISwipeIdFactory swipeIdfactory, IMatchIdFactory matchIdFactory, IEventPublisher eventPublisher, IDateTimeProvider dateTimeProvider, ILogger<CreateSwipesHandler> logger, IMapper mapper)
+        public CreateSwipesHandler(MatchingDbContext context, ISwipesCacheRepository cacheRepository, ISwipeIdFactory swipeIdfactory, IMatchIdFactory matchIdFactory, IPublishEndpoint publishEndpoint, IDateTimeProvider dateTimeProvider, ILogger<CreateSwipesHandler> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _cacheRepository = cacheRepository ?? throw new ArgumentNullException(nameof(cacheRepository));
             _swipeIdfactory = swipeIdfactory ?? throw new ArgumentNullException(nameof(swipeIdfactory));
             _matchIdFactory = matchIdFactory ?? throw new ArgumentNullException(nameof(matchIdFactory));
-            _eventPublisher = eventPublisher ?? throw new ArgumentNullException(nameof(eventPublisher));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
             _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -107,7 +105,7 @@ namespace Matching.Application.Features.Swipes.Commands
                     match.PartnerTwoId
                     );
 
-                await _eventPublisher.PublishAsync(matchEvent, cancellationToken);
+                await _publishEndpoint.Publish(matchEvent, cancellationToken);
 
                 return Results.Created($"api/swipes/{newMatchSwipe.Id.Value}", null);
             }
@@ -118,35 +116,32 @@ namespace Matching.Application.Features.Swipes.Commands
             await _context.SaveChangesAsync(cancellationToken);
             await _cacheRepository.CreateAsync(newSwipe, cancellationToken);
 
-            var @event = GetSwipeEvent(newSwipe);
 
-            await _eventPublisher.PublishAsync(@event, cancellationToken);
+            if (type == SwipeType.Right)
+            {
+                var @event = new RightSwipeEvent(
+                    Guid.NewGuid(),
+                    _dateTimeProvider.NowUtcOffset(),
+                    newSwipe.Id.Value,
+                    newSwipe.FromUserId,
+                    newSwipe.ToUserId);
+                await _publishEndpoint.Publish(@event, cancellationToken);
+            }
+            else if (type == SwipeType.Left)
+            {
+                var @event = new LeftSwipeEvent(
+                    Guid.NewGuid(),
+                    _dateTimeProvider.NowUtcOffset(),
+                    newSwipe.Id.Value,
+                    newSwipe.FromUserId,
+                    newSwipe.ToUserId);
+
+                await _publishEndpoint.Publish(@event, cancellationToken);
+
+            }
 
             return Results.Created($"api/swipes/{newSwipe.Id.Value}", null);
   
-        }
-
-
-        private BaseEvent GetSwipeEvent(Swipe swipe)
-        {
-            if (swipe.Type == SwipeType.Right)
-            {
-                return new RightSwipeEvent(
-                    Guid.NewGuid(),
-                    _dateTimeProvider.NowUtcOffset(),
-                    swipe.Id.Value,
-                    swipe.FromUserId,
-                    swipe.ToUserId);
-            }
-
-
-            return new LeftSwipeEvent(
-                Guid.NewGuid(),
-                _dateTimeProvider.NowUtcOffset(),
-                swipe.Id.Value,
-                swipe.FromUserId,
-                swipe.ToUserId);
-
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using Application.Shared.Pipes;
 using EventBus.Messages.Common;
-using EventBus.Messages.Publisher;
 using MassTransit;
 using Matching.Application.Common.Interfaces;
 using Matching.Application.Domain.Factories;
@@ -81,8 +80,6 @@ namespace Matching.Api.Extensions
                 });
 
             });
-
-            services.AddScoped<IEventPublisher, EventPublisher>();
         }
 
     }

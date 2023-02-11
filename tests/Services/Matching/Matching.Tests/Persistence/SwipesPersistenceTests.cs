@@ -7,13 +7,13 @@ using Utils.Time;
 
 namespace Matching.Tests.Persistence
 {
-    public class SwipesPersistenceTests : IntegrationTestBase
+    public class SwipesPersistenceTests : MssqlIntegrationTestBase
     {
 
         private readonly ISwipeIdFactory _swipeIdFactory;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public SwipesPersistenceTests(IntegrationTestFactory factory) : base(factory)
+        public SwipesPersistenceTests(MssqlIntegrationTestFactory factory) : base(factory)
         {
             var scope = factory.Services.CreateScope();
             _swipeIdFactory = scope.ServiceProvider.GetRequiredService<ISwipeIdFactory>();

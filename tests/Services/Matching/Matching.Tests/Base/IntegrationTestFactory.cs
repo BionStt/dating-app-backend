@@ -45,7 +45,6 @@ namespace Matching.Tests.Base
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-
             builder.ConfigureTestServices(services =>
             {
                 services.RemoveCache();
@@ -63,7 +62,7 @@ namespace Matching.Tests.Base
                     cfg.AddConsumer<MatchEventHandler>();
                 });
 
-            }).UseEnvironment("Testing");
+            });
         }
 
         public async Task InitializeAsync()

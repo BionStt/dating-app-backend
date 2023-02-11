@@ -1,5 +1,4 @@
-﻿using Matching.Application.Common.Interfaces;
-using Matching.Application.Domain.Entities;
+﻿using Matching.Application.Domain.Entities;
 using Matching.Application.Domain.Factories;
 using Matching.Tests.Base;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,16 +6,14 @@ using Utils.Time;
 
 namespace Matching.Tests.Persistence
 {
-    public class SwipesCacheTests : IntegrationTestBase
+    public class SwipesCacheTests : RedisIntegrationTestBase
     {
-        private readonly ISwipesCacheRepository _cacheRepository;
         private readonly ISwipeIdFactory _swipeIdFactory;
         private readonly IDateTimeProvider _dateTimeProvider;
 
-        public SwipesCacheTests(IntegrationTestFactory factory) : base(factory)
+        public SwipesCacheTests(RedisIntegrationTestFactory factory) : base(factory)
         {
             var scope = factory.Services.CreateScope();
-            _cacheRepository = scope.ServiceProvider.GetRequiredService<ISwipesCacheRepository>();
             _swipeIdFactory = scope.ServiceProvider.GetRequiredService<ISwipeIdFactory>();
             _dateTimeProvider = scope.ServiceProvider.GetRequiredService<IDateTimeProvider>();
         }
@@ -32,10 +29,10 @@ namespace Matching.Tests.Persistence
 
             var swipe = new Swipe(swipeId, fromUserId, toUserId, type, createdAt);
             
-            await _cacheRepository.CreateAsync(swipe);
+            await CacheRepository.CreateAsync(swipe);
 
-            var cachedSwipe = await _cacheRepository.GetByIdAsync(swipeId);
-            var exists = await _cacheRepository.ExistsAsync(swipeId);
+            var cachedSwipe = await CacheRepository.GetByIdAsync(swipeId);
+            var exists = await CacheRepository.ExistsAsync(swipeId);
 
             Assert.NotNull(cachedSwipe);
             Assert.True(exists);
@@ -67,10 +64,10 @@ namespace Matching.Tests.Persistence
             var toUsersSwipe = new Swipe(swipeId1, fromUserId1, toUserId1, type1, createdAt1);
 
 
-            await _cacheRepository.CreateAsync(fromUserSwipe);
-            await _cacheRepository.CreateAsync(toUsersSwipe);
+            await CacheRepository.CreateAsync(fromUserSwipe);
+            await CacheRepository.CreateAsync(toUsersSwipe);
 
-            bool exists = await _cacheRepository.BothExistsByFromUserIdAndToUserIdAndType(fromUserId, toUserId, type);
+            bool exists = await CacheRepository.BothExistsByFromUserIdAndToUserIdAndType(fromUserId, toUserId, type);
 
             Assert.True(exists);
         }

@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Matches\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Services\Matching\Matching.Api\Matching.Api.csproj" />
   </ItemGroup>
 

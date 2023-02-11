@@ -1,4 +1,5 @@
-﻿using Matching.Application.Infrastructure.Persistence;
+﻿using MassTransit.Testing;
+using Matching.Application.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Matching.Tests.Base

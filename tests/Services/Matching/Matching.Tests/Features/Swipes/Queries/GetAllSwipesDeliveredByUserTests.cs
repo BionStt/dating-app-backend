@@ -9,11 +9,11 @@ using Utils.Time;
 
 namespace Matching.Tests.Features.Swipes.Queries
 {
-    public class GetAllSwipesDeliveredByUserTests : IntegrationTestBase
+    public class GetAllSwipesDeliveredByUserTests : MssqlIntegrationTestBase
     {
         private readonly ISwipeIdFactory _swipeIdFactory;
         private readonly IDateTimeProvider _dateTimeProvider;
-        public GetAllSwipesDeliveredByUserTests(IntegrationTestFactory factory) : base(factory)
+        public GetAllSwipesDeliveredByUserTests(MssqlIntegrationTestFactory factory) : base(factory)
         {
             var scope = factory.Services.CreateScope();
             _swipeIdFactory = scope.ServiceProvider.GetRequiredService<ISwipeIdFactory>();
