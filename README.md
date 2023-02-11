@@ -1,5 +1,5 @@
 # Dating App Backend
-Simple API Rest that tries to emulate how dating apps process and deliver the swipes and matches made with DotNet Core 6 and uses [Vertical Slice Architecture](https://code-maze.com/vertical-slice-architecture-aspnet-core/) with [Minimal Api's](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0) and [CQRS]( https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs) using EF.Core for writes and Dapper for reads.
+Simple API Rest that tries to emulate how dating apps process and deliver the swipes and matches made with DotNet Core 6 and uses [Vertical Slice Architecture](https://code-maze.com/vertical-slice-architecture-aspnet-core/) with [Minimal Api's](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0) and [CQRS]( https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs) using [EF Core](https://learn.microsoft.com/en-us/ef/core/) for writes and [Dapper](https://github.com/DapperLib/Dapper) for reads.
 
 ## Architecture Overview
 ![alt text](https://github.com/juan-canseco/dating-app-backend/blob/main/img/architecture-overview.png)
@@ -44,8 +44,6 @@ In case you don’t have docker installed in your pc, you will need to install R
   }
 }
 ```
-
-
 ## Libraries used
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/) 
