@@ -17,6 +17,21 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 // Third | Shutdown the project
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
+In case you don’t have docker installed in your pc, you will need to install RabbitMq, Redis, MSSQL; Once installed in the appsettings.Development.json you will need to change the following properties:
+```json
+{
+  "ConnectionStrings": {
+    "MatchingApplication": "YOUR SQL SERVER DATABASE CONNECTION STRING"
+  },
+  "EventBusSettings": {
+    "HostAddress": "YOUR RABBITMQ HOST ADDRESS"
+  },
+  "CacheSettings": {
+    "ConnectionString": "YOUR REDIS HOST ADDRESS"
+  }
+}
+```
+
 
 ### Libraries used
 - [Carter](https://github.com/CarterCommunity/Carter)
