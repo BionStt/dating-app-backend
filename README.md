@@ -10,11 +10,11 @@ When you send a request to create a swipe, the request handler will check if use
 
 
 ### Libraries used
-- Carter
-- FluentValidation 
-- MediatR
-- EFCore
-- Dapper
-- StackExchangeRedis
-- MassTransit 
-- Testcontainers
+- [Carter](https://github.com/CarterCommunity/Carter)
+- [FluentValidation](https://docs.fluentvalidation.net/en/latest/) 
+- [MediatR](https://github.com/jbogard/MediatR)
+- [EF Core](https://learn.microsoft.com/en-us/ef/core/)
+- [Dapper](https://github.com/DapperLib/Dapper)
+- [StackExchangeRedis](https://stackexchange.github.io/StackExchange.Redis/)
+- [MassTransit](https://masstransit.io/documentation/configuration) 
+- [Testcontainers](https://dotnet.testcontainers.org/)
