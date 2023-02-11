@@ -49,4 +49,6 @@ Inspired by
 - [aspnetrun/run-aspnetcore-microservices](https://github.com/aspnetrun/run-aspnetcore-microservices) by Mehmet Ozkaya
 - [Design Dating Platform - Tinder](https://techtakshila.com/system-design-interview/chapter-5/) by Tech Takshila
 - [CQRS Validation Pipeline with MediatR and FluentValidation](https://code-maze.com/cqrs-mediatr-fluentvalidation/) by CodeMaze
+- [ASP.NET Core Integration Tests with Test Containers & Postgres](https://www.azureblue.io/asp-net-core-integration-tests-with-test-containers-and-postgres/) by Matthias Güntert
+- [Integration Test In Asp.Net Core 6 Using SqlServer Image and TestContainers](https://hamidmosalla.com/2022/09/10/integration-test-in-asp-net-core-6-using-sqlserver-image-and-testcontainers/) by Hamid Mosalla
 
