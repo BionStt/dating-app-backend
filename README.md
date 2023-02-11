@@ -9,20 +9,15 @@ When you send a request to create a swipe, the request handler will check if use
 
 ## Features
 The Matching API project hase the following features:
-<br>
-<span style="color:black">Swipes</span>
 - Create Swipe
 - Get Swipe By Id
 - Get Right Swipes received By User 
 - Get All Swipes delivered by User 
 - Get All Swipes Received by User 
-<br>
-Matches
-<br>
 - Get Match by Id
 - Get Match by Users
 - Get Matches by User
-
+<br>
 Each feature has its own unit and integration tests.
 
 ## How to run
