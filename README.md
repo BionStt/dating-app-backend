@@ -33,7 +33,7 @@ In case you don’t have docker installed in your pc, you will need to install R
 ```
 
 
-### Libraries used
+## Libraries used
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/) 
 - [MediatR](https://github.com/jbogard/MediatR)
@@ -43,7 +43,7 @@ In case you don’t have docker installed in your pc, you will need to install R
 - [MassTransit](https://masstransit.io/documentation/configuration) 
 - [Testcontainers](https://dotnet.testcontainers.org/)
 
-### Credits
+## Credits
 Inspired by
 - [Minimal API Vertical Slice Architecture](https://github.com/isaacOjeda/MinimalApiArchitecture) by Issac Ojeda
 - [aspnetrun/run-aspnetcore-microservices](https://github.com/aspnetrun/run-aspnetcore-microservices) by Mehmet Ozkaya
