@@ -42,3 +42,11 @@ In case you don’t have docker installed in your pc, you will need to install R
 - [StackExchangeRedis](https://stackexchange.github.io/StackExchange.Redis/)
 - [MassTransit](https://masstransit.io/documentation/configuration) 
 - [Testcontainers](https://dotnet.testcontainers.org/)
+
+### Credits
+Inspired by
+- [Minimal API Vertical Slice Architecture](https://github.com/isaacOjeda/MinimalApiArchitecture) by Issac Ojeda
+- [aspnetrun/run-aspnetcore-microservices](https://github.com/aspnetrun/run-aspnetcore-microservices) by Mehmet Ozkaya
+- [Design Dating Platform - Tinder](https://techtakshila.com/system-design-interview/chapter-5/) by Tech Takshila
+- [CQRS Validation Pipeline with MediatR and FluentValidation](https://code-maze.com/cqrs-mediatr-fluentvalidation/) by CodeMaze
+
