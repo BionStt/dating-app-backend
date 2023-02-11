@@ -9,16 +9,15 @@ When you send a request to create a swipe, the request handler will check if use
 
 ## Features
 The Matching API project hase the following features:
-Swipes
 - Create Swipe
 - Get Swipe By Id
 - Get Right Swipes received By User 
 - Get All Swipes delivered by User 
 - Get All Swipes Received by User 
-Matches
 - Get Match By Id
 - Get Match By Users 
 - Get All User Matches 
+Note : each feature has its own unit and integration tests
 
 ## How to run
 In order to execute this project, you will need to open the terminal and locate the project root folder, once the above is done you will need to execute the following commands:
@@ -55,6 +54,7 @@ In case you don’t have docker installed in your pc, you will need to install R
 - [StackExchangeRedis](https://stackexchange.github.io/StackExchange.Redis/)
 - [MassTransit](https://masstransit.io/documentation/configuration) 
 - [Testcontainers](https://dotnet.testcontainers.org/)
+- [xUnit.Net](https://xunit.net/)
 
 ## Credits
 Inspired by
