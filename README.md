@@ -1,5 +1,5 @@
 # Dating App Backend
-Simple API Rest that tries to emulate how dating apps process and deliver the swipes and matches made with DotNet Core 6 and uses Vertical Slice Architecture with Minimal Api's.
+Simple API Rest that tries to emulate how dating apps process and deliver the swipes and matches made with DotNet Core 6 and uses [Vertical Slice Architecture](https://code-maze.com/vertical-slice-architecture-aspnet-core/) with [Minimal Api's](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0).
 
 ## Architecture Overview
 ![alt text](https://github.com/juan-canseco/dating-app-backend/blob/main/img/architecture-overview.png)
