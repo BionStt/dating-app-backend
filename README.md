@@ -9,13 +9,15 @@ When you send a request to create a swipe, the request handler will check if use
 
 ## Features
 The Matching API project hase the following features:
-Swipes
 <br>
+Swipes
 - Create Swipe
 - Get Swipe By Id
 - Get Right Swipes received By User 
 - Get All Swipes delivered by User 
 - Get All Swipes Received by User 
+<br>
+Matches
 - Get Match By Id
 - Get Match By Users 
 - Get All User Matches 
