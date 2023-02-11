@@ -9,6 +9,8 @@ When you send a request to create a swipe, the request handler will check if use
 
 ## Features
 The Matching API project hase the following features:
+<br>
+Swipes
 - Create Swipe
 - Get Swipe By Id
 - Get Right Swipes received By User 
@@ -18,7 +20,7 @@ The Matching API project hase the following features:
 - Get Match By Users 
 - Get All User Matches 
 <br>
-Note : each feature has its own unit and integration tests
+Each feature has its own unit and integration tests.
 
 ## How to run
 In order to execute this project, you will need to open the terminal and locate the project root folder, once the above is done you will need to execute the following commands:
