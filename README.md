@@ -8,5 +8,6 @@ Simple API Rest that tries to emulate how dating apps process and deliver the sw
 - FluentValidation 
 - MediatR
 - EFCore
+- Dapper
 - StackExchangeRedis
 - MassTransit 
