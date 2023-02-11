@@ -10,11 +10,11 @@ When you send a request to create a swipe, the request handler will check if use
 ## How to run with docker-compose?
 In order to execute this project, you will need to open the terminal and locate the project root folder, once the above is done you will need to execute the following commands:
 ```bash
-// First 
+// First | Build the project images
 docker-compose build
-// Second
+// Second | Up the project 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
-// Third in order to shutdown the app 
+// Third | Shutdown the project
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
 
