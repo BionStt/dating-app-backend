@@ -51,7 +51,8 @@ Once you’re finished of setting up the environment run the app as you usually 
 - Add Reccommendation Service
 - Add Identity Server
 - Add Api Gateway
-- Create A front end
+- Add observability
+- Create a front-end
 ## Libraries used
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/) 
