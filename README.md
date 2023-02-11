@@ -47,8 +47,6 @@ In case you don’t have docker installed in your pc, you will need to install R
 }
 ```
 Once you’re finished of setting up the environment run the app as you usually would with your preferred Ide.
-<br>
-Api Link:  [http://localhost:8000/swagger/index.html](http://localhost:8000/swagger/index.html)
 ## Next Steps 
 - Add Reccommendation Service
 - Add Identity Server
