@@ -1,5 +1,5 @@
 # Dating App Backend
-Simple API Rest that tries to emulate how dating apps process and deliver the swipes and matches made with DotNet Core 6 and uses [Vertical Slice Architecture](https://code-maze.com/vertical-slice-architecture-aspnet-core/) with [Minimal Api's](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0).
+Simple API Rest that tries to emulate how dating apps process and deliver the swipes and matches made with DotNet Core 6 and uses [Vertical Slice Architecture](https://code-maze.com/vertical-slice-architecture-aspnet-core/) with [Minimal Api's](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-6.0) and [CQRS]( https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs) using EF.Core for writes and Dapper for reads.
 
 ## Architecture Overview
 ![alt text](https://github.com/juan-canseco/dating-app-backend/blob/main/img/architecture-overview.png)
@@ -62,6 +62,7 @@ Inspired by
 - [Minimal API Vertical Slice Architecture](https://github.com/isaacOjeda/MinimalApiArchitecture) by Issac Ojeda
 - [aspnetrun/run-aspnetcore-microservices](https://github.com/aspnetrun/run-aspnetcore-microservices) by Mehmet Ozkaya
 - [Design Dating Platform - Tinder](https://techtakshila.com/system-design-interview/chapter-5/) by Tech Takshila
+- [CQRS and MediatR in ASP.NET Core](https://code-maze.com/cqrs-mediatr-in-aspnet-core/) by CodeMaze
 - [CQRS Validation Pipeline with MediatR and FluentValidation](https://code-maze.com/cqrs-mediatr-fluentvalidation/) by CodeMaze
 - [ASP.NET Core Integration Tests with Test Containers & Postgres](https://www.azureblue.io/asp-net-core-integration-tests-with-test-containers-and-postgres/) by Matthias Güntert
 - [Integration Test In Asp.Net Core 6 Using SqlServer Image and TestContainers](https://hamidmosalla.com/2022/09/10/integration-test-in-asp-net-core-6-using-sqlserver-image-and-testcontainers/) by Hamid Mosalla
