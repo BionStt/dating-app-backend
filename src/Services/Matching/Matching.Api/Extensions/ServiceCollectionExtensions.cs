@@ -82,5 +82,15 @@ namespace Matching.Api.Extensions
             });
         }
 
+        public static void AddSwagger(this IServiceCollection services)
+        {
+            services.AddEndpointsApiExplorer();
+            services.AddOpenApiDocument(c =>
+            {
+                c.Title = "Matching Api";
+                c.Version = "v1";
+            });
+        }
+
     }
 }

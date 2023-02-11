@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  
+  cache:
+    container_name: cache
+    restart: always
+    ports:
+      - "6379:6379"
+
+  mssql:
+    container_name: mssql
+    environment:
+      SA_PASSWORD: Admin.1234
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    
+  matching.api:
+    container_name: matching.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    depends_on:
+      - rabbitmq
+      - cache
+      - mssql
+    ports:
+      - "8000:80"
+
+

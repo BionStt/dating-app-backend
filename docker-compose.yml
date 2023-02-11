@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:latest
+
+  cache:
+    image: redis:alpine
+
+  matching.api:
+    image: ${DOCKER_REGISTRY-}matchingapi
+    build:
+      context: .
+      dockerfile: src/Services/Matching/Matching.Api/Dockerfile
