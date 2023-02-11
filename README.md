@@ -44,6 +44,11 @@ In case you don’t have docker installed in your pc, you will need to install R
   }
 }
 ```
+## Next Steps 
+- Add Reccommendation Service
+- Add Identity Server
+- Add Api Gateway
+- Create A front end
 ## Libraries used
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/) 
