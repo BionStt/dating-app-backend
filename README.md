@@ -17,12 +17,6 @@ Swipes
 - Get All Swipes delivered by User 
 - Get All Swipes Received by User 
 <br>
-Matches
-<br>
-- Get Match By Id
-- Get Match By Users 
-- Get All User Matches 
-<br>
 Each feature has its own unit and integration tests.
 
 ## How to run
